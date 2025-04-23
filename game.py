@@ -1,4 +1,5 @@
 def main():
-    print('Starting the game...')
+    name = input('Enter your name: ')
+    print(f'Welcome, {name}!')
 
 main()
