@@ -1,9 +1,15 @@
+def get_player_name():
+    return input('Enter your name: ')
+
+def make_choice():
+    return input('Do you go left or right? ')
+
 def main():
-    name = input('Enter your name: ')
+    name = get_player_name()
     health = 100
     treasure_found = False
     while health > 0 and not treasure_found:
-        choice = input('Do you go left or right? ')
+        choice = make_choice()
         if choice == 'left':
             print('You find a treasure chest!')
             treasure_found = True
