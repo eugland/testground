@@ -1,14 +1,19 @@
 def main():
     name = input('Enter your name: ')
     health = 100
-    while health > 0:
+    treasure_found = False
+    while health > 0 and not treasure_found:
         choice = input('Do you go left or right? ')
         if choice == 'left':
-            print('You encounter a friendly dragon!')
+            print('You find a treasure chest!')
+            treasure_found = True
         else:
             print('You fall into a trap!')
             health -= 50
         print(f'{name} has {health} health points.')
-    print('Game over!')
+    if treasure_found:
+        print('Congratulations, you win!')
+    else:
+        print('Game over!')
 
 main()
