@@ -1,5 +1,6 @@
 def main():
     name = input('Enter your name: ')
-    print(f'Welcome, {name}!')
+    choice = input('Do you go left or right? ')
+    print(f'{name} chose to go {choice}.')
 
 main()
