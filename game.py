@@ -1,1 +1,4 @@
-print('Welcome to the Adventure Game!')
+def main():
+    print('Starting the game...')
+
+main()
