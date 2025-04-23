@@ -1,7 +1,11 @@
+# Adventure Game
+
 def get_player_name():
+    # Get the player's name
     return input('Enter your name: ')
 
 def make_choice():
+    # Get the player's choice
     return input('Do you go left or right? ')
 
 def main():
@@ -22,4 +26,5 @@ def main():
     else:
         print('Game over!')
 
-main()
+if __name__ == '__main__':
+    main()
