@@ -2,17 +2,11 @@ import os
 import time
 from git import Repo
 
-# Define the repository path
-repo_path = os.path.abspath("game_repo")
-
-# Create the repository directory if it doesn't exist
-os.makedirs(repo_path, exist_ok=True)
-
-# Initialize the Git repository
-repo = Repo.init(repo_path)
+# Initialize the Repo object for the current directory
+repo = Repo(os.getcwd())
 
 # Define the game file path
-game_file = os.path.join(repo_path, "game.py")
+game_file = os.path.join(repo.working_tree_dir, "game.py")
 
 # Define the content for each commit
 commits = [
