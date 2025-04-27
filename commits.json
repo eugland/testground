@@ -1,0 +1,39 @@
+[
+    {
+      "message": "init: greet the player",
+      "content": "print('Welcome to Tic-Tac-Toe!')\n"
+    },
+    {
+      "message": "feat: add board data structure and print_board()",
+      "content": "board = [' ']*9\n\n\ndef print_board():\n    rows = [board[i:i+3] for i in range(0, 9, 3)]\n    for r in rows:\n        print('|'.join(r))\n        print('-'*5)\n\nprint_board()\n"
+    },
+    {
+      "message": "feat: let player X place a mark once",
+      "content": "board = [' ']*9\n\n\ndef print_board():\n    rows = [board[i:i+3] for i in range(0, 9, 3)]\n    for r in rows:\n        print('|'.join(r))\n        print('-'*5)\n\nprint_board()\nmove = int(input('Choose position 1-9 for X: ')) - 1\nboard[move] = 'X'\nprint_board()\n"
+    },
+    {
+      "message": "feat: simple game loop with alternating turns (win logic TBD)",
+      "content": "board = [' ']*9\n\n\ndef print_board():\n    rows = [board[i:i+3] for i in range(0, 9, 3)]\n    for r in rows:\n        print('|'.join(r))\n        print('-'*5)\n\ncurrent = 'X'\nwhile True:\n    print_board()\n    move = int(input(f'{current} choose 1-9: ')) - 1\n    if board[move] == ' ':\n        board[move] = current\n        current = 'O' if current == 'X' else 'X'\n    else:\n        print('Spot taken!')\n"
+    },
+    {
+      "message": "feat: add check_winner() rows/cols/diagonals",
+      "content": "board = [' ']*9\n\nWIN_LINES = [\n    (0,1,2),(3,4,5),(6,7,8),  # rows\n    (0,3,6),(1,4,7),(2,5,8),  # cols\n    (0,4,8),(2,4,6)           # diags\n]\n\ndef print_board():\n    rows = [board[i:i+3] for i in range(0, 9, 3)]\n    for r in rows:\n        print('|'.join(r))\n        print('-'*5)\n\ndef check_winner(mark):\n    return any(all(board[i]==mark for i in line) for line in WIN_LINES)\n\ncurrent='X'\nwhile True:\n    print_board()\n    move=int(input(f'{current} choose 1-9: '))-1\n    if board[move]!=' ': continue\n    board[move]=current\n    if check_winner(current):\n        print_board(); print(f'{current} wins!'); break\n    if ' ' not in board:\n        print_board(); print('Draw!'); break\n    current='O' if current=='X' else 'X'\n"
+    },
+    {
+      "message": "feat: extract draw check into function",
+      "content": "board=[' ']*9\nWIN_LINES=[(0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6)]\n\ndef print_board():\n    rows=[board[i:i+3] for i in range(0,9,3)]\n    for r in rows:\n        print('|'.join(r)); print('-'*5)\n\ndef check_winner(m):\n    return any(all(board[i]==m for i in l) for l in WIN_LINES)\n\ndef draw():\n    return ' ' not in board\n\ncurrent='X'\nwhile True:\n    print_board(); move=int(input(f'{current} 1-9: '))-1\n    if board[move]!=' ': continue\n    board[move]=current\n    if check_winner(current):\n        print_board(); print(f'{current} wins!'); break\n    if draw():\n        print_board(); print('Draw!'); break\n    current='O' if current=='X' else 'X'\n"
+    },
+    {
+      "message": "refactor: wrap gameplay into functions",
+      "content": "board=[' ']*9\nWIN=[(0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6)]\n\ndef print_board():\n    rows=[board[i:i+3] for i in range(0,9,3)]\n    for r in rows:\n        print('|'.join(r)); print('-'*5)\n\ndef winner(m):\n    return any(all(board[i]==m for i in l) for l in WIN)\n\ndef full():\n    return ' ' not in board\n\ndef get_move(p):\n    while True:\n        try:\n            idx=int(input(f'{p} (1-9): '))-1\n            if board[idx]==' ': return idx\n        except: pass\n        print('Invalid move.')\n\ndef play():\n    cur='X'\n    while True:\n        print_board(); board[get_move(cur)]=cur\n        if winner(cur):\n            print_board(); print(f'{cur} wins!'); break\n        if full():\n            print_board(); print('Draw!'); break\n        cur='O' if cur=='X' else 'X'\n\nplay()\n"
+    },
+    {
+      "message": "feat: add replay option",
+      "content": "def game():\n    board=[' ']*9\n    WIN=[(0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6)]\n    def print_board():\n        for i in range(0,9,3):\n            print('|'.join(board[i:i+3])); print('-'*5)\n    def win(m): return any(all(board[i]==m for i in l) for l in WIN)\n    cur='X'\n    while True:\n        print_board()\n        try:\n            idx=int(input(f'{cur} 1-9: '))-1\n            if board[idx]!=' ': raise ValueError\n        except: print('Try again'); continue\n        board[idx]=cur\n        if win(cur): print_board(); print(f'{cur} wins'); break\n        if ' ' not in board: print_board(); print('Draw'); break\n        cur='O' if cur=='X' else 'X'\n\nwhile True:\n    game()\n    if input('Play again (y/n)? ').lower()!='y':\n        break\n"
+    },
+    {
+      "message": "docs: add comments and __main__ guard",
+      "content": "\"\"\"Console Tic-Tac-Toe\nIncremental game built for git-bisect practice.\"\"\"\n\ndef play_once():\n    board=[' ']*9\n    WIN=[(0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6)]\n\n    def show():\n        for i in range(0,9,3):\n            print('|'.join(board[i:i+3])); print('-'*5)\n\n    def winner(m):\n        return any(all(board[i]==m for i in line) for line in WIN)\n\n    player='X'\n    while True:\n        show()\n        try:\n            idx=int(input(f'{player} choose (1-9): '))-1\n            if not 0<=idx<9 or board[idx] != ' ':\n                raise ValueError\n        except ValueError:\n            print('Invalid move. Try again.')\n            continue\n        board[idx]=player\n        if winner(player):\n            show(); print(f'{player} wins!'); break\n        if ' ' not in board:\n            show(); print('Draw!'); break\n        player='O' if player=='X' else 'X'\n\nif __name__ == '__main__':\n    while True:\n        play_once()\n        if input('Play again (y/n)? ').lower()!='y':\n            break\n"
+    }
+  ]
+  
