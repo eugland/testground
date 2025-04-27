@@ -7,7 +7,12 @@ def print_board():
         print('|'.join(r))
         print('-'*5)
 
-print_board()
-move = int(input('Choose position 1-9 for X: ')) - 1
-board[move] = 'X'
-print_board()
+current = 'X'
+while True:
+    print_board()
+    move = int(input(f'{current} choose 1-9: ')) - 1
+    if board[move] == ' ':
+        board[move] = current
+        current = 'O' if current == 'X' else 'X'
+    else:
+        print('Spot taken!')
