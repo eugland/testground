@@ -8,3 +8,6 @@ def print_board():
         print('-'*5)
 
 print_board()
+move = int(input('Choose position 1-9 for X: ')) - 1
+board[move] = 'X'
+print_board()
